@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { CssBaseLine, Container, Grid, AppBar, ToolBar, Typography, Button, IconButton } from "material-ui/core";
 
 const App = () => {
   return (
-    <div>App is running</div>
+    <>
+    <CssBaseLine/>
+    </>
   )
 }
 
