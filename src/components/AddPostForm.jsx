@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -34,7 +34,7 @@ const postSchema = yup.object().shape({
     tag: yup.mixed().oneOf(tags),
 });
 
-export const AddPostForm = ({ open, handleClose }) => {
+const AddPostForm = ({ open, handleClose }) => {
 
   const { register, handleSubmit, control, errors, reset } = useForm({
     resolver: yupResolver(postSchema)
@@ -50,7 +50,7 @@ export const AddPostForm = ({ open, handleClose }) => {
             </DialogContentText>
 
             <div className={classes.root}>
-                <form noValidate autoComplete="off" onSubmit={}>
+                <form noValidate autoComplete="off">
                     <TextField
                         id="title"
                         label="Başlık"
@@ -81,20 +81,44 @@ export const AddPostForm = ({ open, handleClose }) => {
                             className={classes.textField}
                             fullWidth
                             >
-                                {}
+                                {
+                                    tags.map((tag, index) => (
+                                        <MenuItem key={index} value={tag}>
+                                            {tag}
+                                        </MenuItem>
+                                    ))
+                                }
 
                             </Select>
                         }
-
                         name="tag"
                         control={control}
                         error={"errors.tag ? true : false"}
                         defaultValue={tags[0]}
                     />
+                    <TextField
+                        id="content"
+                        label="İçerik"
+                        name="content"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        className={classes.textField}
+                        size="small"
+                        inputRef={register} 
+                        error={errors.content ? true : false}
+                        fullWidth
+                    />
                 </form>
             </div>
         </DialogContent>
+        <DialogActions>
+            <Button color="inherit">Vazgeç</Button>
+            <Button type= "submit" variant= "outlined"color="primary">Yayınla</Button>
+        </DialogActions>
     </Dialog>
   )
 };
+
+export default AddPostForm;
 

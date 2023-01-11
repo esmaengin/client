@@ -59,7 +59,7 @@ const App = () => {
                 <a href="http://localhost:3000/posts">BiBlog</a>
             </Typography>
 
-            <Button color="primary" variant="outlined" startIcon={<PenIcon/>}>
+            <Button color="primary" variant="outlined" startIcon={<PenIcon/>} onClick={handleOpen}>
               Yeni Yazı
             </Button>
           </Toolbar>
