@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import {
   CssBaseline, 
@@ -11,11 +11,17 @@ import {
   IconButton,
  } from "@material-ui/core";
 
-import { BrowserRouter as Router, Routes, Route, redirect } from "react-router-dom";
+import { 
+  BrowserRouter as Router, 
+  Routes, 
+  Route, 
+  redirect,
+} from "react-router-dom";
 import PenIcon from "@material-ui/icons/Create";
 import PostsList from "./components/PostsList";
+import AddPostForm from "./components/AddPostForm";
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles( (theme) => ({
   root: {
    flexGrow: 1, //genişleyebileceği kadar genişlemesi için
   },
@@ -31,11 +37,20 @@ const useStyles = makeStyles( theme => ({
 }));
 
 const App = () => {
+  const [ open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   const classes = useStyles();
   return (
     <>
-    <CssBaseline/>
+    <CssBaseline />
     <Container maxWidth="lg">
         <AppBar position="static" color= "inherit" elevation={0}>
           <Toolbar>
@@ -56,11 +71,12 @@ const App = () => {
                 <Route exact path="/posts" component={PostsList}/>
               </Routes>
 
-              <redirect from="/" to="/posts" />
+              <redirect from="/" to="/posts"/>
             </Router>
           </Grid>
         </Grid>
-    </Container>  
+    </Container> 
+    <AddPostForm open={open} handleClose={handleClose} />
     </>
   );
 };
